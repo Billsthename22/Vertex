@@ -49,13 +49,6 @@ export default function Navbar() {
       Sign_In
     </button>
   </Link>
-
-  {/* Link to the App Download - Styled as a high-signal action */}
-  <Link href="/download">
-    <button className="px-5 py-2.5 bg-white text-black text-sm font-black rounded-xl hover:bg-cyan-500 hover:text-black transition-all duration-300 shadow-lg shadow-white/5 uppercase tracking-tighter italic">
-      Download_App
-    </button>
-  </Link>
 </div>
       </div>
     </nav>
