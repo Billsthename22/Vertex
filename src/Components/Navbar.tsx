@@ -43,13 +43,20 @@ export default function Navbar() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
-          <button className="hidden sm:block text-sm font-semibold text-gray-300 hover:text-white transition-colors">
-            Sign In
-          </button>
-          <button className="px-5 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg shadow-white/5">
-            Download App
-          </button>
-        </div>
+  {/* Link to your redesigned Auth/Initialize page */}
+  <Link href="/Auth">
+    <button className="hidden sm:block text-sm font-semibold text-gray-400 hover:text-cyan-400 transition-colors uppercase tracking-widest font-mono">
+      Sign_In
+    </button>
+  </Link>
+
+  {/* Link to the App Download - Styled as a high-signal action */}
+  <Link href="/download">
+    <button className="px-5 py-2.5 bg-white text-black text-sm font-black rounded-xl hover:bg-cyan-500 hover:text-black transition-all duration-300 shadow-lg shadow-white/5 uppercase tracking-tighter italic">
+      Download_App
+    </button>
+  </Link>
+</div>
       </div>
     </nav>
   );

@@ -1,202 +1,169 @@
 "use client";
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import React from 'react';
 import { 
-  RiRadarFill, RiCompass3Line, RiUser6Line, 
-  RiSettings4Line, RiPulseFill, RiShieldCheckLine,
-  RiNodeTree, // Cleaned up RiNodesFill error here
-  RiBroadcastLine, RiStackLine, RiKey2Line,
-  RiShareForwardLine, RiEditLine
-} from 'react-icons/ri';
+  Zap, Globe, Heart, AtSign, Settings, 
+  Share2, Link as LinkIcon, MapPin, Calendar,
+  Grid, List, Layers, ArrowUpRight
+} from 'lucide-react';
 
-export default function Profile() {
-  const pathname = usePathname();
-  const [activeTab, setActiveTab] = useState('BROADCASTS');
-  
-  const [userProfile] = useState({
-    name: "Alex Rivers",
-    handle: "alex_rivers_0x42",
-    bio: "Full-stack Architect specializing in geometric UI systems and decentralized data visualization.",
-    reach: "2.4k",
-    uptime: "99.99%",
-    reputation: "4.8"
-  });
-
-  const broadcasts = [
-    { id: 1, title: "Vertex UI Component Library v1.0", stream: "DATA_STREAM_01", type: "PROTOCOL" },
-    { id: 2, title: "Geometric Brutalism Research", stream: "DATA_STREAM_02", type: "DESIGN" },
-    { id: 3, title: "Neural UI Navigation Logic", stream: "DATA_STREAM_03", type: "LOGIC" },
-    { id: 4, title: "Decentralized Node Handshake", stream: "DATA_STREAM_04", type: "NETWORK" },
-  ];
-
+export default function VertexProfile() {
   return (
-    <div className="min-h-screen bg-[#020202] text-white flex font-sans selection:bg-cyan-500">
+    <div className="min-h-screen bg-black text-[#E4E4E7] flex justify-center selection:bg-purple-500/30">
       
-      {/* 1. SIDEBAR */}
-      <aside className="w-20 lg:w-72 fixed left-0 top-0 h-screen border-r border-white/5 bg-black/40 backdrop-blur-2xl p-6 z-50 flex flex-col">
-        <div className="mb-12 px-2 flex items-center gap-3">
-          <div className="w-8 h-8 bg-cyan-500 rounded-lg flex items-center justify-center shadow-[0_0_15px_#06b6d4]">
-            <RiPulseFill className="text-black text-xl" />
+      {/* 1. SLIM GLOBAL NAV (Consistent Sidebar) */}
+      <aside className="w-20 border-r border-white/5 hidden md:flex flex-col items-center py-8 gap-10 sticky top-0 h-screen">
+        <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center font-black italic">V</div>
+        <nav className="flex flex-col gap-8 text-gray-500">
+          <Zap size={22} className="hover:text-white cursor-pointer transition" />
+          <Globe size={22} className="hover:text-white cursor-pointer transition" />
+          <AtSign size={22} className="hover:text-white cursor-pointer transition" />
+          <div className="w-8 h-8 rounded-full border-2 border-purple-500 p-0.5">
+            <img src="https://i.pravatar.cc/100?u=me" className="rounded-full grayscale" alt="me" />
           </div>
-          <h1 className="hidden lg:block text-2xl font-black tracking-tighter italic uppercase">Vertex</h1>
-        </div>
-        
-        <nav className="flex-1 space-y-4">
-          {[
-            { name: 'Feed', href: '/', icon: <RiRadarFill /> },
-            { name: 'Explore', href: '/Explore', icon: <RiCompass3Line /> },
-            { name: 'Messages', href: '/Messages', icon: <RiBroadcastLine /> },
-            { name: 'Profile', href: '/Profile', icon: <RiUser6Line /> },
-          ].map((link) => (
-            <Link key={link.href} href={link.href}>
-              <div className={`flex items-center gap-4 px-4 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
-                pathname === link.href ? 'bg-white text-black shadow-xl shadow-white/5' : 'text-gray-500 hover:text-white hover:bg-white/5'
-              }`}>
-                <span className="text-2xl">{link.icon}</span>
-                <span className="hidden lg:block">{link.name}</span>
-              </div>
-            </Link>
-          ))}
         </nav>
       </aside>
 
-      {/* 2. MAIN HUB */}
-      <main className="flex-1 ml-20 lg:ml-72 pt-12 pb-20 px-6 lg:px-12">
-        <div className="max-w-6xl mx-auto">
-          
-          {/* PROFILE HEADER */}
-          <header className="relative bg-[#0A0A0B] border border-white/5 rounded-[48px] p-10 lg:p-16 overflow-hidden mb-12 group">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -mr-48 -mt-48" />
-            
-            <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-end gap-12">
-              <div className="relative">
-                <div className="w-48 h-48 bg-white/5 border border-white/10 rounded-[40px] flex items-center justify-center group-hover:border-cyan-500/50 transition-all duration-700 overflow-hidden">
-                    <div className="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,#808080_1px,transparent_1px),linear-gradient(-45deg,#808080_1px,transparent_1px)] bg-[size:10px_10px]" />
-                    <span className="text-6xl font-black italic text-cyan-500 relative z-10">AR</span>
-                </div>
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-cyan-500 text-black text-[9px] font-black px-4 py-2 rounded-full uppercase tracking-widest">
-                  Node_Verified
-                </div>
-              </div>
+      {/* 2. PROFILE CONTENT */}
+      <main className="flex-1 max-w-[900px] border-r border-white/5 min-h-screen">
+        
+        {/* Banner & Avatar Section */}
+        <div className="relative h-64 bg-[#0A0A0A] overflow-hidden">
+          <div className="absolute inset-0 opacity-30 bg-[url('https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center transition-transform hover:scale-105 duration-1000" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
+        </div>
 
-              <div className="flex-1 text-center lg:text-left">
-                <div className="flex flex-col lg:flex-row lg:items-center gap-6 mb-6">
-                  <div>
-                    <h2 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase italic leading-none mb-2">{userProfile.name}</h2>
-                    <p className="text-[10px] font-black text-gray-600 uppercase tracking-[0.4em]">{userProfile.handle}</p>
-                  </div>
-                  <Link 
-                    href="/Editprofile"
-                    className="w-fit mx-auto lg:mx-0 flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10"
-                  >
-                    <RiEditLine size={16} /> Edit_Dossier
-                  </Link>
-                </div>
-                <p className="text-gray-400 text-lg max-w-2xl leading-relaxed font-medium mb-10 italic">
-                  "{userProfile.bio}"
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/5 pt-10">
-                   <Stat label="Network Reach" val={userProfile.reach} color="text-cyan-500" />
-                   <Stat label="Data Uptime" val={userProfile.uptime} color="text-purple-500" />
-                   <Stat label="Trust Score" val={userProfile.reputation} color="text-emerald-500" />
-                   <Stat label="Node Rank" val="Master" color="text-orange-500" />
-                </div>
+        <div className="px-8 pb-8">
+          <div className="relative flex justify-between items-end -mt-16 mb-6">
+            <div className="relative">
+              <div className="w-32 h-32 rounded-[2.5rem] bg-black p-1 border border-white/10">
+                <img src="https://i.pravatar.cc/300?u=alex" className="w-full h-full rounded-[2.2rem] object-cover" alt="Avatar" />
+              </div>
+              <div className="absolute bottom-2 right-2 w-6 h-6 bg-purple-600 rounded-full border-4 border-black flex items-center justify-center">
+                <Zap size={10} className="text-white fill-white" />
               </div>
             </div>
-          </header>
+            <div className="flex gap-3">
+              <button className="p-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition">
+                <Share2 size={18} />
+              </button>
+              <button className="px-6 py-3 bg-white text-black rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-gray-200 transition">
+                Edit Dossier
+              </button>
+            </div>
+          </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* ASIDE */}
-            <aside className="lg:col-span-4 space-y-8">
-              <div className="bg-[#0A0A0B] border border-white/5 p-8 rounded-[40px]">
-                <div className="flex items-center gap-3 mb-8">
-                  <RiKey2Line className="text-cyan-500 text-xl" />
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Identity_Protocol</h3>
-                </div>
-                <div className="space-y-4 font-mono text-[9px] text-gray-600 uppercase">
-                  <div className="flex justify-between border-b border-white/5 pb-2">
-                    <span>Key_Type</span><span className="text-white">ED25519</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span>Public_Hash</span>
-                    <span className="text-cyan-500 break-all bg-white/[0.03] p-3 rounded-lg border border-white/5">
-                      vtx_773x_9921_kl88_pp01_node_alpha
-                    </span>
-                  </div>
-                </div>
-              </div>
+          <div className="mb-8">
+            <h1 className="text-4xl font-black tracking-tighter italic uppercase">Alex Rivera</h1>
+            <p className="text-gray-500 font-mono text-[11px] tracking-[0.2em] uppercase">Architectural Engineer • Node #8421</p>
+            
+            <p className="mt-4 text-gray-400 max-w-xl leading-relaxed italic">
+              Building the future of high-signal networks. Focused on minimal UX, edge computing, and brutalist digital architecture. 
+            </p>
 
-              <div className="bg-[#0A0A0B] border border-white/5 p-8 rounded-[40px]">
-                <div className="flex items-center gap-3 mb-8">
-                  {/* FIXED ICON HERE */}
-                  <RiNodeTree className="text-purple-500 text-xl" />
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Direct_Peers</h3>
-                </div>
-                <div className="flex -space-x-4 mb-6">
-                  {[1,2,3,4,5].map(i => (
-                    <div key={i} className="w-12 h-12 rounded-2xl bg-white/5 border-2 border-[#020202] flex items-center justify-center font-black text-[10px] text-gray-400">
-                      P{i}
-                    </div>
-                  ))}
-                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border-2 border-[#020202] flex items-center justify-center text-[10px] font-black text-cyan-500">+124</div>
-                </div>
-              </div>
-            </aside>
+            <div className="flex gap-6 mt-6 text-[10px] font-black uppercase tracking-widest text-gray-500">
+              <span className="flex items-center gap-2"><MapPin size={12} /> Tokyo, JP</span>
+              <span className="flex items-center gap-2"><LinkIcon size={12} /> vertex.network/alex</span>
+              <span className="flex items-center gap-2"><Calendar size={12} /> Joined Jan '24</span>
+            </div>
+          </div>
 
-            {/* FEED SECTION */}
-            <section className="lg:col-span-8">
-              <div className="flex gap-10 mb-10 border-b border-white/5 pb-6">
-                {['BROADCASTS', 'MEDIA', 'INTERSECTS'].map(tab => (
-                  <button 
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all relative ${
-                      activeTab === tab ? 'text-white' : 'text-gray-600'
-                    }`}
-                  >
-                    {tab}
-                    {activeTab === tab && (
-                      <div className="absolute -bottom-6 left-0 right-0 h-1 bg-cyan-500 shadow-[0_0_15px_#06b6d4]" />
-                    )}
-                  </button>
-                ))}
-              </div>
+          {/* SIGNAL STATS - Bento Grid Style */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <StatCard label="Followers" value="12.4k" />
+            <StatCard label="Following" value="842" />
+            <StatCard label="Signal" value="98.2" color="text-purple-500" />
+            <StatCard label="Artifacts" value="156" />
+          </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {activeTab === 'BROADCASTS' ? (
-                  broadcasts.map((post) => (
-                    <div key={post.id} className="group bg-[#0A0A0B] border border-white/5 rounded-[32px] overflow-hidden hover:border-cyan-500/30 transition-all p-8 min-h-[220px]">
-                      <div className="flex justify-between items-start">
-                         <RiStackLine className="text-2xl text-gray-700 group-hover:text-cyan-500" />
-                         <span className="text-[9px] font-black text-gray-700 uppercase tracking-widest">{post.type}</span>
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-black text-cyan-500/50 uppercase tracking-widest mb-2">{post.stream}</p>
-                        <h4 className="font-black text-xl italic uppercase tracking-tighter leading-tight">{post.title}</h4>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="col-span-full h-64 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[40px] opacity-20">
-                    <RiShieldCheckLine size={48} className="mb-4" />
-                    <p className="text-[10px] font-black uppercase tracking-[0.4em]">Signal_Locked</p>
-                  </div>
-                )}
-              </div>
-            </section>
+          {/* TABS */}
+          <div className="flex border-b border-white/5 mb-8">
+            <TabItem label="Artifacts" active />
+            <TabItem label="Circles" />
+            <TabItem label="Mentions" />
+          </div>
+
+          {/* ARTIFACTS FEED (Masonry/Grid Hybrid) */}
+          <div className="columns-1 md:columns-2 gap-6 space-y-6">
+             <div className="break-inside-avoid bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-8 group hover:border-white/20 transition-all cursor-pointer">
+                <div className="flex justify-between items-start mb-6">
+                  <span className="text-[10px] font-mono text-purple-500 uppercase tracking-widest">Post // 042</span>
+                  <ArrowUpRight size={16} className="text-gray-700 group-hover:text-white" />
+                </div>
+                <p className="text-xl font-light italic mb-6 leading-relaxed">"The intersection of brutalism and digital interfaces is where true speed lives."</p>
+                <div className="flex items-center gap-4 text-gray-600 text-[10px] font-black uppercase">
+                  <span className="flex items-center gap-1"><Heart size={12}/> 1.2k</span>
+                  <span className="flex items-center gap-1"><Layers size={12}/> 42</span>
+                </div>
+             </div>
+
+             <div className="break-inside-avoid rounded-[2.5rem] overflow-hidden border border-white/5 aspect-square relative group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                   <span className="text-[10px] font-black uppercase tracking-[0.3em] bg-white text-black px-6 py-2 rounded-full">View Artifact</span>
+                </div>
+             </div>
+
+             <div className="break-inside-avoid bg-white text-black rounded-[2.5rem] p-8 cursor-pointer hover:scale-[1.02] transition-transform">
+                <h3 className="text-2xl font-black tracking-tighter uppercase italic leading-none mb-4">Project: Obsidian</h3>
+                <p className="text-sm font-medium mb-6">A deep dive into OLED-first design systems and high-contrast typography.</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] font-black uppercase tracking-widest underline">Read Case Study</span>
+                  <Zap size={16} fill="black" />
+                </div>
+             </div>
           </div>
         </div>
       </main>
+
+      {/* 3. RIGHT SIDEBAR - USER'S ACTIVE CIRCLES */}
+      <aside className="w-[300px] hidden xl:flex flex-col sticky top-0 h-screen p-8 gap-8">
+        <div className="bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-8">
+          <h3 className="text-[10px] font-black text-gray-500 tracking-[0.3em] mb-6 uppercase">Active Circles</h3>
+          <div className="space-y-6">
+            <CircleItem name="Edge Ops" members="1.2k" />
+            <CircleItem name="Brutalist Design" members="8.4k" />
+            <CircleItem name="Tokyo Builders" members="402" />
+          </div>
+        </div>
+        
+        <div className="p-8 border border-white/5 rounded-[2.5rem] bg-gradient-to-br from-purple-900/10 to-transparent">
+          <h3 className="text-[10px] font-black text-purple-400 tracking-[0.3em] mb-4 uppercase">Identity Verified</h3>
+          <p className="text-xs text-gray-500 leading-relaxed">This node has been verified through GitHub and LinkedIn authentication.</p>
+        </div>
+      </aside>
+
     </div>
   );
 }
 
-function Stat({ label, val, color }: any) {
+/** --- SUB-COMPONENTS --- */
+
+function StatCard({ label, value, color = "text-white" }: any) {
   return (
-    <div>
-      <p className="text-[9px] font-black text-gray-700 uppercase tracking-widest mb-2 italic">{label}</p>
-      <p className={`text-2xl lg:text-3xl font-black italic tracking-tighter leading-none ${color}`}>{val}</p>
+    <div className="bg-[#0A0A0A] border border-white/5 p-5 rounded-3xl hover:border-white/20 transition-all cursor-default">
+      <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest mb-1">{label}</p>
+      <p className={`text-xl font-bold italic tracking-tighter ${color}`}>{value}</p>
+    </div>
+  );
+}
+
+function TabItem({ label, active = false }: any) {
+  return (
+    <button className={`px-8 py-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all relative ${active ? 'text-white' : 'text-gray-600 hover:text-gray-400'}`}>
+      {label}
+      {active && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500 shadow-[0_0_10px_#A855F7]" />}
+    </button>
+  );
+}
+
+function CircleItem({ name, members }: any) {
+  return (
+    <div className="flex justify-between items-center group cursor-pointer">
+      <div>
+        <p className="text-sm font-bold group-hover:text-purple-400 transition-colors">#{name}</p>
+        <p className="text-[9px] text-gray-600 font-mono tracking-tighter">{members} Members</p>
+      </div>
+      <ArrowUpRight size={14} className="text-gray-800 group-hover:text-white transition" />
     </div>
   );
 }
