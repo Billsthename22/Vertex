@@ -22,7 +22,7 @@ export default function VertexUnifiedHome() {
         <nav className="space-y-2 flex-1">
           <NavItem href="/Home" icon={<Home size={20} />} label="Home" active />
           <NavItem href="/Explore" icon={<Globe size={20} />} label="Explore" />
-          <NavItem href="/Notifications" icon={<Bell size={20} />} label="Notifications" badge="4" />
+          <NavItem href="/Notification" icon={<Bell size={20} />} label="Notifications" badge="4" />
           <NavItem href="/Messages" icon={<Mail size={20} />} label="Messages" />
           <NavItem href="/Profile" icon={<User size={20} />} label="Profile" />
           <NavItem href="/Settings" icon={<Settings size={20} />} label="Settings" />
@@ -132,16 +132,16 @@ export default function VertexUnifiedHome() {
 
       {/* 4. MOBILE BOTTOM NAV */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#050505]/90 backdrop-blur-xl border-t border-white/5 px-6 py-3 flex justify-between items-center z-50">
-        <a href="/home" className="p-2"><Home size={24} className="text-white" /></a>
-        <a href="/explore" className="p-2 text-gray-500"><Search size={24} /></a>
+        <a href="/Home" className="p-2"><Home size={24} className="text-white" /></a>
+        <a href="/Explore" className="p-2 text-gray-500"><Search size={24} /></a>
         <button className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center -mt-8 shadow-xl border-4 border-[#050505]">
             <Plus size={24} />
         </button>
-        <a href="/notifications" className="p-2 text-gray-500 relative">
+        <a href="/Notifications" className="p-2 text-gray-500 relative">
             <Bell size={24} />
             <span className="absolute top-1 right-1 w-2 h-2 bg-purple-500 rounded-full border border-black"></span>
         </a>
-        <a href="/messages" className="p-2 text-gray-500"><Mail size={24} /></a>
+        <a href="/Messages" className="p-2 text-gray-500"><Mail size={24} /></a>
       </nav>
 
     </div>
