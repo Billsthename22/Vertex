@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 export default function VertexMessages() {
-  const [activeChat, setActiveChat] = useState(null); // null = show list on mobile
+  const [activeChat, setActiveChat] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-black text-[#E4E4E7] flex overflow-hidden selection:bg-purple-500/30 font-sans">
