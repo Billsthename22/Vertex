@@ -137,7 +137,7 @@ export default function VertexUnifiedHome() {
         <button className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center -mt-8 shadow-xl border-4 border-[#050505]">
             <Plus size={24} />
         </button>
-        <a href="/Notifications" className="p-2 text-gray-500 relative">
+        <a href="/Notification" className="p-2 text-gray-500 relative">
             <Bell size={24} />
             <span className="absolute top-1 right-1 w-2 h-2 bg-purple-500 rounded-full border border-black"></span>
         </a>
