@@ -1,127 +1,144 @@
 "use client";
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import React from 'react';
+import { 
+  Search, Compass, Heart, ArrowUpRight, 
+  Home, Bell, Mail, User, Globe, 
+  Layers, Zap, MoreHorizontal, Command 
+} from 'lucide-react';
 
-export default function Explore() {
-  const pathname = usePathname();
-  
-  // 1. Data State
-  const allTrends = [
-    { id: 1, category: "Technology", title: "The rise of Neural UI", views: "1.2M", color: "bg-cyan-500" },
-    { id: 2, category: "Architecture", title: "Geometric Brutalism in 2026", views: "840k", color: "bg-purple-500" },
-    { id: 3, category: "Network", title: "Vertex Node Handshake Protocol", views: "310k", color: "bg-emerald-500" },
-    { id: 4, category: "Technology", title: "Quantum Encryption Nodes", views: "1.5M", color: "bg-cyan-500" },
-  ];
-
-  // 2. Functional States
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState("ALL");
-
-  // 3. Filter Logic
-  const filteredTrends = allTrends.filter(trend => {
-    const matchesSearch = trend.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = activeFilter === "ALL" || trend.category.toUpperCase() === activeFilter;
-    return matchesSearch && matchesFilter;
-  });
-
-  const filters = ["ALL", "TECHNOLOGY", "ARCHITECTURE", "NETWORK"];
-
+export default function VertexExplore() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex">
+    <div className="min-h-screen bg-black text-[#E4E4E7] flex justify-center">
       
-      {/* SIDEBAR NAVIGATION */}
-      <aside className="w-64 fixed left-0 top-0 h-screen border-r border-white/10 bg-[#0a0a0a] p-6 z-50">
-        <div className="mb-10 px-2">
-          <h1 className="text-2xl font-black tracking-tighter italic uppercase">Vertex<span className="text-cyan-500">.</span></h1>
+      {/* 1. LEFT NAVIGATION - The Command Center */}
+      <aside className="w-[280px] hidden lg:flex flex-col sticky top-0 h-screen p-6 border-r border-white/5">
+        <div className="flex items-center gap-3 mb-10 px-2">
+          <div className="w-9 h-9 bg-gradient-to-tr from-purple-600 to-pink-500 rounded-xl flex items-center justify-center font-black text-white shadow-lg shadow-purple-500/20">
+            V
+          </div>
+          <span className="text-xl font-bold tracking-tight italic">Vertex</span>
         </div>
-        <nav className="space-y-2">
-          {[
-            { name: 'Feed', href: '/', icon: '◈' },
-            { name: 'Explore', href: '/Explore', icon: '◬' },
-            { name: 'Profile', href: 'Profile', icon: '👤' },
-            { name: 'Settings', href: '/Settings', icon: '⚙' },
-          ].map((link) => (
-            <Link key={link.href} href={link.href}>
-              <div className={`flex items-center gap-4 px-4 py-3 rounded-lg text-xs font-mono transition-all cursor-pointer ${
-                pathname === link.href ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' : 'text-gray-500 hover:text-white hover:bg-white/5'
-              }`}>
-                <span>{link.icon}</span> {link.name.toUpperCase()}
-              </div>
-            </Link>
-          ))}
+
+        <nav className="space-y-1 flex-1">
+          <NavItem icon={<Home size={20} />} label="Home" />
+          <NavItem icon={<Globe size={20} />} label="Explore" active />
+          <NavItem icon={<Bell size={20} />} label="Signal" badge="12" />
+          <NavItem icon={<Mail size={20} />} label="Direct" />
+          <NavItem icon={<Layers size={20} />} label="Circles" />
+          <NavItem icon={<User size={20} />} label="Profile" />
         </nav>
+
+        {/* System Status / User Mini */}
+        <div className="mt-auto p-4 rounded-2xl bg-[#0A0A0A] border border-white/5 flex items-center gap-3 hover:bg-white/[0.05] transition-all cursor-pointer">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500" />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold truncate">Alex Rivera</p>
+            <p className="text-[10px] text-gray-500 font-mono tracking-widest uppercase">Member #8421</p>
+          </div>
+          <MoreHorizontal size={14} className="text-gray-600" />
+        </div>
       </aside>
 
-      {/* MAIN CONTENT AREA */}
-      <main className="flex-1 ml-64 pt-28 pb-10 px-6">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Header & Search */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-            <div>
-              <h1 className="text-4xl font-black tracking-tighter uppercase italic">Explore Network</h1>
-              <div className="flex gap-4 mt-4">
-                {filters.map(f => (
-                  <button 
-                    key={f}
-                    onClick={() => setActiveFilter(f)}
-                    className={`text-[10px] font-mono tracking-widest px-3 py-1 border transition-all ${
-                      activeFilter === f ? 'border-cyan-500 text-cyan-500 bg-cyan-500/5' : 'border-white/10 text-gray-500 hover:text-white'
-                    }`}
-                  >
-                    {f}
-                  </button>
-                ))}
-              </div>
+      {/* 2. MAIN EXPLORE CONTENT */}
+      <main className="flex-1 max-w-[900px] min-h-screen pb-24 px-6 lg:px-12 border-r border-white/5">
+        
+        {/* Header with Search */}
+        <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-2xl py-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="space-y-1">
+              <h1 className="text-5xl font-black tracking-tighter uppercase italic">Explore</h1>
+              <p className="text-gray-500 text-[10px] font-bold tracking-[0.3em] uppercase">The Curated Network</p>
             </div>
-
-            <div className="relative group">
+            
+            <div className="relative group flex-1 max-w-md">
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-white transition-colors" size={20} />
               <input 
-                type="text" 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="SEARCH FREQUENCIES..." 
-                className="bg-[#0f0f0f] border border-white/10 py-3 px-6 pr-12 rounded-full w-full md:w-80 focus:outline-none focus:border-cyan-500 transition-all font-mono text-xs text-white"
+                className="w-full bg-[#0A0A0A] border border-white/5 rounded-2xl py-4 pl-14 pr-6 text-sm focus:border-white/20 focus:outline-none transition-all"
+                placeholder="Search anything..."
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 group-hover:text-cyan-500 transition-colors">⌕</span>
             </div>
           </div>
 
-          {/* Dynamic Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 min-h-[600px]">
-            
-            {/* Featured Item (Hidden if searching/filtering specifically) */}
-            {activeFilter === "ALL" && searchQuery === "" && (
-              <div className="md:col-span-2 md:row-span-2 bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 relative overflow-hidden group hover:border-cyan-500/50 transition-all">
-                <div className="h-full flex flex-col justify-end relative z-10">
-                  <span className="text-cyan-500 font-mono text-xs mb-2 tracking-[0.3em]">FEATURED_STREAM</span>
-                  <h2 className="text-3xl font-black leading-tight mb-4">DECENTRALIZED SOCIAL ARCHITECTURE: THE VERTEX MANIFESTO</h2>
-                  <button className="w-fit bg-white text-black px-6 py-2 text-xs font-bold uppercase tracking-widest hover:bg-cyan-500 transition-colors">Enter</button>
-                </div>
-                <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-              </div>
-            )}
-
-            {/* Trending Cards */}
-            {filteredTrends.map((trend) => (
-              <div key={trend.id} className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 hover:bg-[#111] transition-all group animate-in fade-in zoom-in duration-300">
-                <div className={`w-8 h-1 mb-4 ${trend.color}`} />
-                <p className="text-[10px] font-mono text-gray-500 uppercase mb-1">{trend.category}</p>
-                <h3 className="font-bold text-lg mb-4 group-hover:text-white transition-colors">{trend.title}</h3>
-                <p className="text-xs text-gray-600 font-mono">{trend.views} Active Nodes</p>
-              </div>
+          {/* Navigation Pills */}
+          <div className="flex gap-3 mt-10 overflow-x-auto no-scrollbar">
+            {['All Signal', 'Visuals', 'Architecture', 'Culture', 'AI', 'Hardware'].map((cat, i) => (
+              <button 
+                key={cat} 
+                className={`px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border ${i === 0 ? 'bg-white text-black border-white' : 'bg-transparent text-gray-500 border-white/10 hover:border-white/30 hover:text-white'}`}
+              >
+                {cat}
+              </button>
             ))}
+          </div>
+        </header>
 
-            {/* Empty State */}
-            {filteredTrends.length === 0 && (
-              <div className="col-span-full h-64 flex items-center justify-center border border-dashed border-white/10 rounded-3xl">
-                <p className="font-mono text-gray-600 uppercase tracking-widest">No signal found on this frequency...</p>
-              </div>
-            )}
+        {/* The Masonry Gallery */}
+        <div className="columns-1 sm:columns-2 gap-6 space-y-6 mt-4">
+          <div className="break-inside-avoid relative rounded-[2.5rem] overflow-hidden group cursor-pointer border border-white/5">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" className="w-full opacity-80 group-hover:opacity-100 transition-all duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black p-8 flex flex-col justify-end">
+               <h3 className="text-2xl font-bold italic">Geometry of Logic</h3>
+            </div>
+          </div>
+
+          <div className="break-inside-avoid bg-[#0A0A0A] p-10 rounded-[2.5rem] border border-white/5 group hover:border-white/20 transition-all">
+            <h3 className="text-2xl font-light italic leading-relaxed">"The details are not the details. They make the design."</h3>
+            <div className="mt-8 flex items-center justify-between">
+              <span className="text-sm font-bold text-gray-400">— Charles Eames</span>
+              <ArrowUpRight className="text-gray-700 group-hover:text-white transition-all" />
+            </div>
+          </div>
+
+          <div className="break-inside-avoid relative rounded-[2.5rem] overflow-hidden border border-white/5">
+            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1000&auto=format&fit=crop" className="w-full opacity-60" />
+            <div className="absolute top-6 right-6 bg-black/40 backdrop-blur-md p-3 rounded-full border border-white/10">
+              <Heart size={16} />
+            </div>
           </div>
         </div>
       </main>
+
+      {/* 3. RIGHT SIDEBAR - Trending Metadata */}
+      <aside className="w-[340px] hidden xl:flex flex-col sticky top-0 h-screen p-8 gap-8">
+        <div className="bg-[#0A0A0A] border border-white/10 rounded-[2.5rem] p-8">
+          <h3 className="text-[10px] font-black text-gray-500 tracking-[0.3em] mb-6 uppercase">Trending Now</h3>
+          <div className="space-y-6">
+            <TrendItem label="Vision Pro" growth="+420%" />
+            <TrendItem label="TypeScript 5.5" growth="+12%" />
+            <TrendItem label="Brutalism" growth="+88%" />
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-purple-900/20 to-transparent border border-purple-500/20 rounded-[2.5rem] p-8">
+          <Zap className="text-purple-500 mb-4" size={24} />
+          <h4 className="font-bold mb-2">Vertex Pro</h4>
+          <p className="text-xs text-gray-400 leading-relaxed mb-6">Access private circles and high-fidelity asset hosting.</p>
+          <button className="w-full py-3 bg-purple-600 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-purple-500/20">Upgrade</button>
+        </div>
+      </aside>
+
+    </div>
+  );
+}
+
+// UI Helpers
+function NavItem({ icon, label, active = false, badge }: any) {
+  return (
+    <div className={`flex items-center justify-between px-4 py-3 rounded-2xl cursor-pointer transition-all ${active ? 'bg-white text-black font-bold shadow-lg' : 'text-gray-500 hover:text-white hover:bg-white/[0.05]'}`}>
+      <div className="flex items-center gap-4">
+        {icon}
+        <span className="text-sm font-semibold uppercase tracking-wider">{label}</span>
+      </div>
+      {badge && <span className="bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-full font-black">{badge}</span>}
+    </div>
+  );
+}
+
+function TrendItem({ label, growth }: any) {
+  return (
+    <div className="flex justify-between items-center group cursor-pointer">
+      <span className="text-sm font-bold group-hover:text-purple-400 transition-colors">{label}</span>
+      <span className="text-[10px] font-mono text-green-500">{growth}</span>
     </div>
   );
 }
